@@ -14,34 +14,45 @@ export default function BookCard({
   cover,
 }: Props) {
   return (
-    <div className="border rounded-lg overflow-hidden shadow-md hover:shadow-lg transition-all duration-200 bg-white max-w-sm">
-      {cover ? (
-        <img
-          src={cover}
-          alt={`${title} cover`}
-          className="w-full h-48 object-cover"
-        />
-      ) : (
-        <div className="h-32 bg-gradient-to-r from-blue-50 to-indigo-100 flex items-center justify-center">
-          <BookOpen size={48} className="text-indigo-500 opacity-80" />
-        </div>
-      )}
+    <div className="bg-white border border-gray-200 rounded-2xl overflow-hidden shadow-sm hover:shadow-md transition-shadow duration-300 max-w-sm">
+      {/* Book Cover */}
+      <div className="aspect-[2/3] bg-gray-50">
+        {cover ? (
+          <img
+            src={cover}
+            alt={`${title} cover`}
+            className="w-full h-full object-cover"
+          />
+        ) : (
+          <div className="w-full h-full flex items-center justify-center bg-gradient-to-br from-blue-100 to-indigo-100">
+            <BookOpen size={48} className="text-indigo-500 opacity-80" />
+          </div>
+        )}
+      </div>
 
-      <div className="p-5">
-        <h2 className="font-bold text-xl text-gray-800 mb-2 line-clamp-2">
+      {/* Book Info */}
+      <div className="p-4 space-y-2">
+        <h2 className="text-lg font-semibold text-gray-800 leading-tight line-clamp-2">
           {title}
         </h2>
 
-        <div className="flex items-center justify-between">
-          <div>
-            {author && <p className="text-gray-600 font-medium">by {author}</p>}
-          </div>
-          {publishedYear && (
-            <span className="text-sm text-gray-500 bg-gray-100 px-2 py-1 rounded-full">
-              {publishedYear}
-            </span>
-          )}
-        </div>
+        {(author || publishedYear) && (
+          <p className="text-sm text-gray-600">
+            {author && (
+              <>
+                by <span className="font-medium">{author}</span>
+              </>
+            )}
+            {publishedYear && (
+              <>
+                {author && <span className="text-gray-400"> · </span>}
+                <span className="text-gray-500">
+                  Published in {publishedYear}
+                </span>
+              </>
+            )}
+          </p>
+        )}
       </div>
     </div>
   );
